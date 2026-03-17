@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import styles from "./tree.module.css";
 import LeafNode from "./LeafNode";
 import Image from "next/image";
+import { QRCodeSVG } from "qrcode.react";
 import { SOCKET_SERVER_URL } from "../constants";
 
 export type Wish = {
@@ -100,6 +101,22 @@ export default function TreeDisplay() {
       
       {/* Atmospheric fog layer */}
       <div className={styles.fogLayer}></div>
+
+      {/* QR Code Overlay */}
+      <div className={styles.qrOverlay}>
+        <div className={styles.qrHeader}>Quét để gửi điều ước</div>
+        <div className={styles.qrBox}>
+          <QRCodeSVG 
+            value="https://cayqr-1.onrender.com/cayqr/submit"
+            size={140}
+            bgColor={"#ffffff"}
+            fgColor={"#020c1b"}
+            level={"M"}
+            includeMargin={true}
+          />
+        </div>
+        <div className={styles.qrUrl}>cayqr-1.onrender.com/cayqr/submit</div>
+      </div>
 
       {/* Header info */}
       <div className={styles.header}>
