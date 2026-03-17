@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wish Tree
 
-## Getting Started
+An interactive real-time web application where visitors can submit messages (wishes) via their smartphones, which immediately display as animated leaves on a large digital screen.
 
-First, run the development server:
+## Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*   **Frontend**: React / Next.js
+*   **Backend**: Custom Node.js + Express Server
+*   **Real-time Communication**: Socket.io
+*   **Animations**: Framer Motion
+*   **Deployment**: Docker + GitHub Actions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Running Locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+3. Open your browser:
+   *   [http://localhost:3000](http://localhost:3000) - Main Landing Page
+   *   [http://localhost:3000/tree](http://localhost:3000/tree) - The Big Screen Tree Display
+   *   [http://localhost:3000/submit](http://localhost:3000/submit) - The Mobile Submission Form
+   *   [http://localhost:3000/qr](http://localhost:3000/qr) - QR Code referencing the submission form
 
-To learn more about Next.js, take a look at the following resources:
+## Automated Deployment (CI/CD)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is configured with a complete **GitHub Actions** CI/CD pipeline. Every push to the `main` branch will automatically:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Check out the code.
+2. Install dependencies & run build checks.
+3. Build a production Docker image.
+4. Push the image to Docker Hub (or GHCR).
+5. Connect to your deployment server via SSH.
+6. Pull the latest image and restart the container.
 
-## Deploy on Vercel
+### Configuring GitHub Secrets
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To make the auto-deployment work, you **must** configure the following Repository Secrets in your GitHub project (`Settings` > `Secrets and variables` > `Actions` > `New repository secret`):
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Secret Name | Description | Example |
+| :--- | :--- | :--- |
+| `DOCKER_USERNAME` | Your Docker registry username (e.g., Docker Hub). | `johndoe` |
+| `DOCKER_PASSWORD` | Your Docker registry password or Personal Access Token. | `dckr_pat_xxx...` |
+| `SERVER_HOST` | The IP address or domain name of your deployment server. | `203.0.113.1` |
+| `SERVER_USER` | The SSH username for your deployment server. | `ubuntu` or `root` |
+| `SERVER_SSH_KEY` | The Private SSH Key (`-----BEGIN RSA PRIVATE KEY-----...`) used to access the server. | *(Your private key content)* |
+
+Once these secrets are added, pushing code to the `main` branch will deploy your updates automatically.
