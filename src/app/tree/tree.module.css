@@ -75,49 +75,51 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-  height: 85vh;
-  max-width: 1400px;
+  height: 90vh;
+  max-width: 1600px;
   z-index: 10;
 }
 
-.treeTrunk {
+.treeImageWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  height: 100%;
+  height: 90%;
+  z-index: 1;
+}
+
+.treeImage {
+  object-fit: contain;
+  object-position: bottom center;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 0 40px rgba(180, 130, 50, 0.15));
+}
+
+/* Atmospheric Fog Layer */
+.fogLayer {
   position: absolute;
   bottom: 0;
   left: 0;
-  z-index: 1;
-  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8));
-}
-
-.treeGroup {
-  animation: subtle-sway 10s ease-in-out infinite;
-  transform-origin: bottom center;
-}
-
-.etchings path {
-  animation: pulse-glow 4s ease-in-out infinite alternate;
-}
-
-.etchings path:nth-child(even) {
-  animation-delay: 2s;
-}
-
-@keyframes subtle-sway {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(0.5deg); }
-}
-
-@keyframes pulse-glow {
-  0% { opacity: 0.3; stroke-width: 0.3; }
-  100% { opacity: 0.8; stroke-width: 0.6; }
+  right: 0;
+  height: 30%;
+  background: linear-gradient(
+    to top,
+    rgba(60, 40, 20, 0.15) 0%,
+    rgba(40, 25, 15, 0.08) 40%,
+    transparent 100%
+  );
+  z-index: 5;
+  pointer-events: none;
 }
 
 /* Leaves */
 .leafContainer {
   position: absolute;
   z-index: 10;
-  transform: translate(-50%, -50%); /* Center perfectly on coordinate */
+  transform: translate(-50%, -50%);
   transition: top 2s ease, left 2s ease;
 }
 
