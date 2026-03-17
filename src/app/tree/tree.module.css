@@ -75,9 +75,10 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-  height: 90vh;
-  max-width: 1600px;
+  height: 100vh;
   z-index: 10;
+  border: none;
+  outline: none;
 }
 
 .treeImageWrapper {
@@ -85,8 +86,8 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  height: 90%;
+  width: 110%;
+  height: 100%;
   z-index: 1;
 }
 
@@ -95,7 +96,7 @@
   object-position: bottom center;
   user-select: none;
   pointer-events: none;
-  filter: drop-shadow(0 0 40px rgba(180, 130, 50, 0.15));
+  filter: drop-shadow(0 0 50px rgba(180, 130, 50, 0.2));
 }
 
 /* Atmospheric Fog Layer */
@@ -200,7 +201,7 @@
 
 .tooltipName {
   font-size: 12px;
-  color: var(--accent-color);
+  color: #ffffff;
   font-weight: 600;
 }
 

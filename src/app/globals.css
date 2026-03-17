@@ -16,13 +16,25 @@
   padding: 0;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: #000; /* Force black to prevent white flashes */
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
 body {
-  background-color: var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent any accidental scrollbars */
+  width: 100vw;
+  height: 100vh;
 }
 
 button {
