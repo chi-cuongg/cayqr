@@ -1,21 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import styles from "./qr.module.css";
 import { Zap } from "lucide-react";
 
 export default function QRCodeDisplay() {
-  const [url, setUrl] = useState("");
-
-  useEffect(() => {
-    // Generate URL dynamically based on where the app is hosted
-    setUrl(`${window.location.origin}/submit`);
-  }, []);
-
-  if (!url) {
-    return <div className={styles.container}>Loading...</div>;
-  }
+  const url = "https://chi-cuongg.github.io/cayqr/submit";
 
   return (
     <div className={styles.container}>
@@ -23,9 +13,9 @@ export default function QRCodeDisplay() {
         <div style={{ marginBottom: '24px', color: '#4ade80' }}>
           <Zap size={48} />
         </div>
-        <h1 className={styles.title}>Join the Wish Tree</h1>
+        <h1 className={styles.title}>Tham Gia Cây Điều Ước</h1>
         <p className={styles.subtitle}>
-          Scan the QR code with your phone camera to add your wish to our live tree.
+          Quét mã QR bằng camera điện thoại để thêm điều ước của bạn lên cây.
         </p>
         
         <div className={styles.qrWrapper}>
@@ -40,7 +30,7 @@ export default function QRCodeDisplay() {
         </div>
         
         <div className={styles.footer}>
-          Or visit directly:
+          Hoặc truy cập trực tiếp:
           <span className={styles.url}>{url}</span>
         </div>
       </div>

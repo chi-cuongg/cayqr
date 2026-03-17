@@ -75,8 +75,8 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-  height: 80vh;
-  max-width: 1200px;
+  height: 85vh;
+  max-width: 1400px;
   z-index: 10;
 }
 
@@ -87,7 +87,30 @@
   bottom: 0;
   left: 0;
   z-index: 1;
-  filter: drop-shadow(0 0 20px rgba(45, 27, 13, 0.5));
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8));
+}
+
+.treeGroup {
+  animation: subtle-sway 10s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.etchings path {
+  animation: pulse-glow 4s ease-in-out infinite alternate;
+}
+
+.etchings path:nth-child(even) {
+  animation-delay: 2s;
+}
+
+@keyframes subtle-sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(0.5deg); }
+}
+
+@keyframes pulse-glow {
+  0% { opacity: 0.3; stroke-width: 0.3; }
+  100% { opacity: 0.8; stroke-width: 0.6; }
 }
 
 /* Leaves */

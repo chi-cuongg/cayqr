@@ -12,10 +12,10 @@ export default function Home() {
       padding: '24px',
       textAlign: 'center'
     }}>
-      <h1 style={{ fontSize: '3rem', margin: 0 }}>Wish Tree</h1>
+      <h1 style={{ fontSize: '3rem', margin: 0 }}>Cây Điều Ước</h1>
       <p style={{ opacity: 0.7, maxWidth: '500px' }}>
-        An interactive real-time experience. 
-        Select a destination to continue:
+        Một trải nghiệm tương tác thời gian thực. 
+        Chọn một điểm đến để tiếp tục:
       </p>
       
       <div style={{
@@ -26,18 +26,18 @@ export default function Home() {
         marginTop: '24px'
       }}>
         <Link href="/tree" style={cardStyle}>
-          <h2>Big Screen Display &rarr;</h2>
-          <p>The interactive tree visualization (designed for large screens).</p>
+          <h2>Màn Hình Lớn &rarr;</h2>
+          <p>Giao diện cây tương tác (thiết kế cho màn hình lớn).</p>
         </Link>
         
         <Link href="/submit" style={cardStyle}>
-          <h2>Mobile Submission &rarr;</h2>
-          <p>Form to submit a new wish to the tree (designed for mobile).</p>
+          <h2>Gửi Lời Ước Bằng Điện Thoại &rarr;</h2>
+          <p>Biểu mẫu để gửi một điều ước mới lên cây (thiết kế cho điện thoại).</p>
         </Link>
         
         <Link href="/qr" style={cardStyle}>
-          <h2>QR Code &rarr;</h2>
-          <p>Display QR code that links to the mobile submission page.</p>
+          <h2>Mã QR &rarr;</h2>
+          <p>Hiển thị mã QR liên kết đến trang gửi điều ước.</p>
         </Link>
       </div>
     </div>

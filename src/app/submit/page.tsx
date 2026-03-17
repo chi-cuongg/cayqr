@@ -3,8 +3,8 @@ import styles from "./submit.module.css";
 import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "Make a Wish | Wish Tree",
-  description: "Add your wish to the interactive digital tree",
+  title: "Gửi Điều Ước | Cây Điều Ước",
+  description: "Thêm điều ước của bạn lên cây điều ước kỹ thuật số",
 };
 
 export const viewport: Viewport = {

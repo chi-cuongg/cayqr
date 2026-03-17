@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Wish Tree',
-  description: 'Interactive beautiful wish tree',
+  title: 'Cây Điều Ước',
+  description: 'Cây điều ước tương tác tuyệt đẹp',
 }
 
 export default function RootLayout({
@@ -11,7 +11,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="vi">
       <body>{children}</body>
     </html>
   )

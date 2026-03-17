@@ -4,6 +4,7 @@ import { useState, FormEvent } from "react";
 import { io } from "socket.io-client";
 import styles from "./submit.module.css";
 import { Leaf, Star, Sparkles, Send } from "lucide-react";
+import { SOCKET_SERVER_URL } from "../constants";
 
 export default function SubmitForm() {
   const [name, setName] = useState("");
@@ -15,8 +16,8 @@ export default function SubmitForm() {
     e.preventDefault();
     if (!message.trim()) return;
 
-    // Connect to same host
-    const socket = io(window.location.origin);
+    // Connect to backend
+    const socket = io(SOCKET_SERVER_URL || window.location.origin);
     
     socket.emit("new-wish", {
       name: name.trim() || "Anonymous",
@@ -35,10 +36,10 @@ export default function SubmitForm() {
     return (
       <div className={styles.successContainer}>
         <div className={styles.successIcon}>✨</div>
-        <h2 className={styles.successTitle}>Wish Sent!</h2>
-        <p className={styles.successText}>Look up at the tree to see your leaf appear.</p>
+        <h2 className={styles.successTitle}>Đã Gửi Điều Ước!</h2>
+        <p className={styles.successText}>Hãy nhìn lên cây để thấy chiếc lá của bạn xuất hiện.</p>
         <button className={styles.button} onClick={() => setSubmitted(false)}>
-          Make Another Wish
+          Gửi Thêm Một Điều Ước
         </button>
       </div>
     );
@@ -46,29 +47,29 @@ export default function SubmitForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h1 className={styles.title}>Make a Wish</h1>
-      <p className={styles.subtitle}>Add your message to our digital tree</p>
+      <h1 className={styles.title}>Gửi Điều Ước</h1>
+      <p className={styles.subtitle}>Thêm thông điệp của bạn lên cây điều ước kỹ thuật số</p>
 
       <div className={styles.inputGroup}>
-        <label htmlFor="name" className={styles.label}>Your Name (Optional)</label>
+        <label htmlFor="name" className={styles.label}>Tên Của Bạn (Không Bắt Buộc)</label>
         <input
           id="name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="How should we call you?"
+          placeholder="Chúng tôi nên gọi bạn là gì?"
           className={styles.input}
           maxLength={30}
         />
       </div>
 
       <div className={styles.inputGroup}>
-        <label htmlFor="message" className={styles.label}>Your Wish *</label>
+        <label htmlFor="message" className={styles.label}>Điều Ước Của Bạn *</label>
         <textarea
           id="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Write something meaningful..."
+          placeholder="Hãy viết một điều ý nghĩa..."
           className={styles.textarea}
           required
           maxLength={150}
@@ -77,7 +78,7 @@ export default function SubmitForm() {
       </div>
 
       <div className={styles.inputGroup}>
-        <label className={styles.label}>Choose Leaf Style</label>
+        <label className={styles.label}>Chọn Kiểu Lá</label>
         <div className={styles.typeSelector}>
           <button
             type="button"
@@ -85,7 +86,7 @@ export default function SubmitForm() {
             onClick={() => setLeafType('green')}
           >
             <Leaf size={24} className={styles.greenIcon} />
-            <span>Classic</span>
+            <span>Truyền Thống</span>
           </button>
           
           <button
@@ -94,7 +95,7 @@ export default function SubmitForm() {
             onClick={() => setLeafType('gold')}
           >
             <Sparkles size={24} className={styles.goldIcon} />
-            <span>Golden</span>
+            <span>Vàng</span>
           </button>
 
           <button
@@ -103,13 +104,13 @@ export default function SubmitForm() {
             onClick={() => setLeafType('star')}
           >
             <Star size={24} className={styles.starIcon} />
-            <span>Star</span>
+            <span>Ngôi Sao</span>
           </button>
         </div>
       </div>
 
       <button type="submit" className={styles.submitButton} disabled={!message.trim()}>
-        <span>Send Wish</span>
+        <span>Gửi Điều Ước</span>
         <Send size={18} />
       </button>
     </form>
