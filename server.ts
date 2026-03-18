@@ -10,7 +10,9 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const PORT = process.env.PORT || 3000;
-const DATA_FILE = path.join(process.cwd(), "wishes.json");
+const DATA_FILE = process.env.DATA_FILE || path.join(process.cwd(), "wishes.json");
+
+console.log(`[Config] Data file path: ${DATA_FILE}`);
 
 // Helper to load wishes
 const loadWishes = () => {
@@ -85,5 +87,6 @@ app.prepare().then(() => {
 
     httpServer.listen(PORT, () => {
         console.log(`> Ready on http://localhost:${PORT}`);
+        console.log(`> Environment: ${process.env.NODE_ENV || 'development'}`);
     });
 });
