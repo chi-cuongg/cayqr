@@ -66,17 +66,33 @@ export default function LeafNode({ wish }: { wish: Wish }) {
         className={styles.leafWrapper}
         initial={{ scale: 0, opacity: 0, rotate: Math.random() * 180 - 90 }}
         animate={{ 
-          scale: 1, 
+          scale: 1.8,  // Increase size by 1.8x
           opacity: 1, 
-          rotate: Math.random() * 40 - 20 
+          rotate: Math.random() * 40 - 20,
+          y: [0, -10, 0], // Slow up-down movement
+          x: [0, 5, 0],   // Slight horizontal drift
         }}
         transition={{ 
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-          delay: Math.random() * 0.5 
+          scale: {
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+            delay: Math.random() * 0.5 
+          },
+          y: {
+            duration: 3 + Math.random() * 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          },
+          x: {
+            duration: 4 + Math.random() * 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          },
+          opacity: { duration: 0.5 },
+          rotate: { duration: 0.5 }
         }}
-        whileHover={{ scale: 1.5, zIndex: 50 }}
+        whileHover={{ scale: 2.2, zIndex: 100 }}
       >
         {renderShape()}
       </motion.div>

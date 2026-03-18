@@ -48,7 +48,7 @@ export default function TreeDisplay() {
     return () => {
       socket.disconnect();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Position leaves around the tree crown area
@@ -56,31 +56,24 @@ export default function TreeDisplay() {
     if (wish.x !== undefined && wish.y !== undefined) return wish;
 
     // The tree image crown area is roughly:
-    // x: 15% to 85% (branches spread wide)
-    // y: 5% to 55% (top half of the tree area)
-    const area = Math.random();
+    // x: 20% to 80% (branches spread wide)
+    // y: 10% to 60% (top half of the tree area)
     let x, y;
 
-    if (area < 0.25) {
-      // Top center
-      x = 50 + (Math.random() - 0.5) * 25;
-      y = 10 + Math.random() * 15;
-    } else if (area < 0.5) {
-      // Left branches
-      x = 20 + Math.random() * 20;
-      y = 20 + Math.random() * 25;
-    } else if (area < 0.75) {
-      // Right branches
-      x = 60 + Math.random() * 20;
-      y = 20 + Math.random() * 25;
-    } else {
-      // Mid area
-      x = 35 + Math.random() * 30;
-      y = 25 + Math.random() * 20;
-    }
+    // Use a more organic distribution
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.sqrt(Math.random()) * 35; // Random radius within a circle
 
-    x = Math.max(10, Math.min(90, x));
-    y = Math.max(5, Math.min(55, y));
+    // Center of the tree crown is roughly at 50, 35
+    x = 50 + Math.cos(angle) * radius;
+    y = 35 + Math.sin(angle) * (radius * 0.8); // Slightly flattened circle (oval)
+
+    // Add some random noise for natural look
+    x += (Math.random() - 0.5) * 5;
+    y += (Math.random() - 0.5) * 5;
+
+    x = Math.max(15, Math.min(85, x));
+    y = Math.max(10, Math.min(65, y));
 
     return { ...wish, x, y };
   }, []);
@@ -98,15 +91,37 @@ export default function TreeDisplay() {
       {/* Background Ambience */}
       <div className={styles.stars}></div>
       <div className={styles.twinkling}></div>
-      
+
       {/* Atmospheric fog layer */}
       <div className={styles.fogLayer}></div>
+
+      {/* Grass Layer */}
+      <div className={styles.grassLayer}>
+        <div className={styles.grassLayerInner}></div>
+        <div className={styles.groundVignette}></div>
+        <div className={styles.treeBaseGlow}></div>
+        <div className={styles.mistLayer}></div>
+
+        {/* Fireflies/Particles */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className={styles.firefly}
+            style={{
+              left: `${Math.random() * 100}%`,
+              bottom: `${Math.random() * 80}%`,
+              animationDelay: `${Math.random() * 10}s`,
+              animationDuration: `${5 + Math.random() * 5}s`
+            }}
+          ></div>
+        ))}
+      </div>
 
       {/* QR Code Overlay */}
       <div className={styles.qrOverlay}>
         <div className={styles.qrHeader}>Quét để gửi điều ước</div>
         <div className={styles.qrBox}>
-          <QRCodeSVG 
+          <QRCodeSVG
             value="https://cayqr-1.onrender.com/submit"
             size={140}
             bgColor={"#ffffff"}
@@ -124,7 +139,7 @@ export default function TreeDisplay() {
           {socketConnected ? (
             <span className={styles.online}>● Trực Tuyến</span>
           ) : (
-             <span className={styles.offline}>● Mất Kết Nối</span>
+            <span className={styles.offline}>● Mất Kết Nối</span>
           )}
         </div>
         <div className={styles.counter}>
@@ -138,9 +153,10 @@ export default function TreeDisplay() {
       <div className={styles.treeArea}>
         {/* Tree Image */}
         <div className={styles.treeImageWrapper}>
-          <Image 
-            src="/cay.png" 
-            alt="Cây Điều Ước" 
+          <div className={styles.treeShadow}></div>
+          <Image
+            src="/cay3.png"
+            alt="Cây Điều Ước"
             fill
             className={styles.treeImage}
             priority

@@ -71,7 +71,7 @@
 /* Tree Visualization */
 .treeArea {
   position: absolute;
-  bottom: 0px;
+  bottom: 8%; /* Move up slightly to sit on grass */
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
@@ -79,16 +79,20 @@
   z-index: 10;
   border: none;
   outline: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .treeImageWrapper {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   width: 110%;
   height: 100%;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .treeImage {
@@ -97,23 +101,114 @@
   user-select: none;
   pointer-events: none;
   filter: drop-shadow(0 0 50px rgba(180, 130, 50, 0.2));
+  transform-origin: bottom center;
 }
 
-/* Atmospheric Fog Layer */
-.fogLayer {
+.treeShadow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, transparent 70%);
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(8px);
+}
+
+/* Ground (Grass Layer) */
+.grassLayer {
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 30%;
+  width: 100vw;
+  height: 25%;
   background: linear-gradient(
-    to top,
-    rgba(60, 40, 20, 0.15) 0%,
-    rgba(40, 25, 15, 0.08) 40%,
+    to top, 
+    #071a0f 0%, 
+    #0f3d1f 40%, 
+    rgba(15, 61, 31, 0.6) 75%, 
     transparent 100%
   );
   z-index: 5;
   pointer-events: none;
+  filter: blur(12px); /* High blur to remove hard edges */
+  mask-image: linear-gradient(to top, black 40%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 40%, transparent 100%);
+}
+
+.grassLayerInner {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 50% 100%, rgba(34, 197, 94, 0.2) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Cfilter id='noiseFilter'%3%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3%3C/filter%3%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3%3C/svg%3");
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+}
+
+.groundVignette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.8) 100%);
+  z-index: 6;
+  pointer-events: none;
+}
+
+.treeBaseGlow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 120px;
+  background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.35) 0%, transparent 70%);
+  filter: blur(25px);
+  z-index: 6;
+  pointer-events: none;
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+
+.mistLayer {
+  position: absolute;
+  bottom: 0%;
+  left: -10%;
+  width: 120%;
+  height: 40%;
+  background: radial-gradient(ellipse at center, rgba(148, 163, 184, 0.08) 0%, transparent 75%);
+  filter: blur(40px);
+  z-index: 7;
+  pointer-events: none;
+  opacity: 0.5;
+  animation: mist-drift 20s linear infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+@keyframes mist-drift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(5%); }
+  100% { transform: translateX(0); }
+}
+
+.firefly {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #facc15;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #facc15, 0 0 20px rgba(250, 204, 21, 0.5);
+  pointer-events: none;
+  z-index: 8;
+  animation: firefly-blink linear infinite, firefly-move ease-in-out infinite;
+  opacity: 0;
 }
 
 /* Leaves */
@@ -133,15 +228,21 @@
 }
 
 .greenLeaf {
-  filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
+  filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.9));
+  width: 28px;
+  height: 28px;
 }
 
 .goldLeaf {
-  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.8));
+  filter: drop-shadow(0 0 15px rgba(245, 158, 11, 1));
+  width: 30px;
+  height: 30px;
 }
 
 .starLeaf {
-  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.8));
+  filter: drop-shadow(0 0 15px rgba(139, 92, 246, 1));
+  width: 32px;
+  height: 32px;
 }
 
 /* Floating Message for new wishes */
@@ -271,4 +372,29 @@
   font-size: 12px;
   margin-top: 12px;
   font-family: monospace;
+}
+
+.firefly {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #facc15;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #facc15, 0 0 20px #facc15;
+  pointer-events: none;
+  animation: firefly-blink linear infinite, firefly-move ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes firefly-blink {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+@keyframes firefly-move {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(10px, -15px); }
+  50% { transform: translate(25px, -5px); }
+  75% { transform: translate(15px, -20px); }
+  100% { transform: translate(0, 0); }
 }
