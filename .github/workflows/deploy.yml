@@ -20,7 +20,9 @@ jobs:
           script: |
             cd ~/cayqr
             git pull origin main
-            # Lệnh này sẽ build lại những phần code mới và restart container
-            docker-compose up -d --build
-            # Dọn dẹp các image cũ không dùng đến để tiết kiệm ổ cứng
+            # Dừng và xóa container cũ để đảm bảo không bị kẹt
+            docker-compose down
+            # Ép Docker build lại từ đầu, không dùng cache để tránh lỗi cũ
+            docker-compose up -d --build --force-recreate
+            # Dọn dẹp tài nguyên thừa
             docker image prune -f
