@@ -5,7 +5,7 @@ import styles from "./qr.module.css";
 import { Zap } from "lucide-react";
 
 export default function QRCodeDisplay() {
-  const url = "https://cayqr-1.onrender.com/submit";
+  const url = "http://13.208.49.40/submit";
 
   return (
     <div className={styles.container}>
