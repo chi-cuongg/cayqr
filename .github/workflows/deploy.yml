@@ -20,9 +20,9 @@ jobs:
           script: |
             cd ~/cayqr
             git pull origin main
-            # Dừng và xóa container cũ để đảm bảo không bị kẹt
+            # Dừng và xóa container hiện tại
             docker-compose down
-            # Ép Docker build lại từ đầu, không dùng cache để tránh lỗi cũ
-            docker-compose up -d --build --force-recreate
-            # Dọn dẹp tài nguyên thừa
+            # Ép build mới hoàn toàn, không dùng cache
+            docker-compose up -d --build --no-cache
+            # Dọn dẹp image lỗi/cũ
             docker image prune -f
