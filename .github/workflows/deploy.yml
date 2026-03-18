@@ -20,9 +20,11 @@ jobs:
           script: |
             cd ~/cayqr
             git pull origin main
-            # Dừng và xóa container hiện tại
-            docker-compose down
-            # Ép build mới hoàn toàn, không dùng cache
-            docker-compose up -d --build --no-cache
-            # Dọn dẹp image lỗi/cũ
+            # Build bản mới trước (vẫn để bản cũ chạy để tránh 502)
+            docker-compose build --no-cache
+            # Sau khi build xong mới khởi động lại container
+            docker-compose up -d --force-recreate
+            # Khởi động lại Nginx để chắc chắn kết nối mới được nhận
+            sudo systemctl restart nginx
+            # Dọn dẹp image cũ
             docker image prune -f
