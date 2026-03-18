@@ -122,7 +122,7 @@ export default function TreeDisplay() {
         <div className={styles.qrHeader}>Quét để gửi điều ước</div>
         <div className={styles.qrBox}>
           <QRCodeSVG
-            value="http://13.208.49.40/tree"
+            value="http://13.208.49.40/submit"
             size={140}
             bgColor={"#ffffff"}
             fgColor={"#020c1b"}
@@ -130,7 +130,7 @@ export default function TreeDisplay() {
             includeMargin={true}
           />
         </div>
-        <div className={styles.qrUrl}>13.208.49.40/tree</div>
+        <div className={styles.qrUrl}>13.208.49.40/submit</div>
       </div>
 
       {/* Header info */}
